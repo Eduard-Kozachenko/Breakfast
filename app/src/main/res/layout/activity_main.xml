@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".presentation.activity.MainActivity">
+
+
+    <ImageView
+        android:id="@+id/iv_mainBackground"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/main_background"
+        />
+
+    <TextView
+        android:id="@+id/tv_previewText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:fontFamily="@font/bilbo_swash_caps"
+        android:gravity="center"
+        android:text="Fast breakfast"
+        android:textColor="#000"
+        android:textSize="70dp"
+        tools:ignore="MissingConstraints" />
+
+    <ImageView
+        android:id="@+id/iv_main_preview"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="200dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginBottom="200dp"
+        android:src="@drawable/dlya_main" />
+
+
+    <LinearLayout
+        android:id="@+id/ll_start"
+        android:layout_width="wrap_content"
+        android:layout_height="160dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <Button
+            android:id="@+id/btn_start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/btn_style_cambio"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="@string/btn_PreviewStart"
+            android:textSize="30dp" />
+
+    </LinearLayout>
+
+</RelativeLayout>

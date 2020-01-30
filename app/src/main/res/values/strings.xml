@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Breakfast</string>
+    <string name="btn_PreviewStart">Start cooking </string>
+    <string name="text_Toast">Choose the necessary ingredients </string>
+</resources>
