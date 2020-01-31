@@ -11,17 +11,24 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
-import android.widget.TextView;
 
+import com.eduard.breakfast.BreakfastApp;
 import com.eduard.breakfast.R;
+import com.eduard.breakfast.di.DaggerBreakfastComponents;
+import com.eduard.breakfast.di.PresentationModule;
 import com.eduard.breakfast.presentation.activity.MainActivity;
 import com.eduard.breakfast.presentation.model.RecipeInfo;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 public class ChoiceFragment extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
+
+    @Inject
+    RecipeAlertFragment recipeAlertFragment;
 
     List<RecipeInfo> recipeInfo;
 
@@ -107,6 +114,8 @@ public class ChoiceFragment extends AppCompatActivity implements AdapterView.OnI
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner2.setAdapter(adapter);
 
+        onInjection();
+
         buttonGenetate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -114,35 +123,15 @@ public class ChoiceFragment extends AppCompatActivity implements AdapterView.OnI
                  switch (position) {
 
                     case 0:
-                        showDialog(recipe1);
+                        recipeAlertFragment.showDialog(ChoiceFragment.this,recipe1);
                         break;
                     case 1:
-                        showDialog(recipe2);
+                        recipeAlertFragment.showDialog(ChoiceFragment.this,recipe2);
                         break;
                     default:
                         break;
                 }
 
-                //необходимо придумать взаимодействие двух спинеров
-//                if(position == 0){
-//                    switch (spinner2 == ) {
-//                        case 0:
-//                            showDialog(recipe1);
-//                            break;
-//                        }
-//                        case 1:
-//                            showDialog(recipe2);
-//                            break;
-//                }
-
-//                }if(position == 1){
-//
-//                    showDialog(recipe2);
-//
-//                }if(position == 2){
-//
-//                    showDialog(recipe3);
-//                }
 
             }
         });
@@ -153,28 +142,13 @@ public class ChoiceFragment extends AppCompatActivity implements AdapterView.OnI
 
     }
 
-    public void showDialog(RecipeInfo mClass){
-        final Dialog dialog = new Dialog(this);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setCancelable(false);
-        dialog.setContentView(R.layout.dialog_recipe_info);
-
-        TextView text = dialog.findViewById(R.id.tv_recipeText);
-        text.setText(mClass.getDescription());
-
-        ImageView imageView = dialog.findViewById(R.id.iv_recipeImg);
-        imageView.setImageResource(mClass.getImage());
-
-        Button dialogButton = dialog.findViewById(R.id.btn_recipeOK);
-        dialogButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
-
-        dialog.show();
-
+    //builder alert dialog
+    protected void onInjection() {
+        DaggerBreakfastComponents.builder()
+                .appComponent(BreakfastApp.getComponent())
+                .presentationModule(new PresentationModule())
+                .build()
+                .inject(this);
     }
 
     //системная кнопка "назад"
